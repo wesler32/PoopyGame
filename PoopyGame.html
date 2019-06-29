@@ -1,0 +1,55 @@
+<p>Poop: <span id='poopCounter'>0</span></p>
+<p>Wesleys Owned: <span id = 'Wesleys'>0</span></p>
+
+
+<center>    <button onClick = 'makePoop(5)'>Make Poop</button>    <center>
+            <button onClick = 'buyAutoPooper()'>Buy Auto Pooper</button>
+            <p id='ErrorMessage'></p> 
+<script>
+    const howMuchWesleyPoops = 5;
+
+    let poop = 0;
+    let wesleys = 0;
+
+    //Set up our auto-poopers
+    setInterval(makeAutoPooperPoop, 5000);
+
+    function clearError() { 
+        showError('');
+    }
+
+    function showError(errorMessage) {
+        const errorDisplayTimeInMill = 3000;
+        let error = document.getElementById('ErrorMessage');
+        error.innerText = errorMessage;
+        setTimeout(clearError, errorDisplayTimeInMill);
+    }
+
+    function setCounter(id, count) {
+        let counter = document.getElementById(id);
+        counter.innerText = count;
+    }
+
+    function makePoop(poopIncrement) {
+        poop += poopIncrement;
+        setCounter('poopCounter', poop)    
+    }
+
+    function buyAutoPooper() {
+        const costOfAutoPooper = 100;
+        if (poop >= costOfAutoPooper) {
+            makePoop(-costOfAutoPooper);
+            wesleys += 1;
+            setCounter('Wesleys', wesleys);
+        }
+        else {
+            showError('Insufficient Funds');
+        }
+        
+    }
+    
+    function makeAutoPooperPoop() {
+        const newPoop = wesleys * howMuchWesleyPoops;
+        makePoop(wesleys * howMuchWesleyPoops);
+    }
+</script>
